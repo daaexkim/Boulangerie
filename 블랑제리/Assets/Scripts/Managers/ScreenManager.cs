@@ -2,11 +2,27 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ScreenManager : MonoBehaviour
+public class ScreenManager : Singleton<ScreenManager>
 {
+    public AdjustSize bgTrans;
+    public AdjustSize ovenTrans;
+
     public CameraBound camBound;
+    protected override void Awake()
+    {
+        base.Awake();
+
+        camBound.SetCameraBound();
+
+        bgTrans.Adjusting(camBound);
+        ovenTrans.Adjusting(camBound);
+
+        bgTrans.transform.position += new Vector3(0, 0.8f);
+        ovenTrans.transform.position = new Vector3(0, camBound.Top - 0.69f);
+    }
 }
 
+[System.Serializable]
 public class CameraBound
 {
     public Camera camera;

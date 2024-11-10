@@ -15,48 +15,42 @@ public class CSVManager : Singleton<CSVManager>
     {
         base.Awake();
 
-        // CSV_Stat();
+        CSV_Word();
     }
 
-    //public void CSV_Stat()
-    //{
-    //    int order = 0; int size = 5;
-    //    string[] data = textAssets[order].text.Split(new string[] { ",", "\n" }, StringSplitOptions.None);
-    //    int tableSize = data.Length / size - 1;
-    //    csvList.statDatas = new StatData[tableSize];
+    public void CSV_Word()
+    {
+        int order = 0; int size = 3;
+        string[] data = textAssets[order].text.Split(new string[] { ",", "\n" }, StringSplitOptions.None);
+        int tableSize = data.Length / size - 1;
+        csvList.wordDatas = new WordData[tableSize];
 
-    //    for (int i = 0; i < tableSize; i++)
-    //    {
-    //        int k = i + 1;
-    //        csvList.statDatas[i] = new StatData
-    //        {
-    //            type = (StatType)Enum.Parse(typeof(StatType), data[size * k]),
-    //            baseAmount = Filtering_int(data[size * k + 1]),
-    //            minAmount = Filtering_int(data[size * k + 2]),
-    //            maxAmount = Filtering_int(data[size * k + 3]),
-    //            isPercent = bool.Parse(data[size * k + 4])
-    //        };
-    //    }
-    //}
+        for (int i = 0; i < tableSize; i++)
+        {
+            int k = i + 1;
+            csvList.wordDatas[i] = new WordData
+            {
+                word = data[size * k],
+                gender = (Gender)Enum.Parse(typeof(Gender), data[size * k + 1]),
+                meaning = data[size * k + 2]
+            };
+        }
+    }
 }
 
 [Serializable]
 public class CSVList
 {
-    // public StatData[] statDatas;
+    public WordData[] wordDatas;
 }
 
-//[Serializable]
-//public struct StatData
-//{
-//    public StatType type;
-//    public int baseAmount;
-//    public int minAmount;
-//    public int maxAmount;
-//    public bool isPercent;
+public enum Gender { Masculin, Feminin, Neutral }
 
-//    public void Update_Stat(ref int defStat, int amount)
-//    {
-//        defStat += amount;
-//    }
-//}
+[Serializable]
+public struct WordData
+{
+    public string word;
+    public Gender gender;
+    public string meaning;
+
+}
