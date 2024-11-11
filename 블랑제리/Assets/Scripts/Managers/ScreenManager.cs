@@ -6,6 +6,9 @@ public class ScreenManager : Singleton<ScreenManager>
 {
     public AdjustSize bgTrans;
     public AdjustSize ovenTrans;
+    public AdjustSize groundTrans;
+    public AdjustSize wallTrans_L, wallTrans_R;
+    public Transform spawnPoint;
 
     public CameraBound camBound;
     protected override void Awake()
@@ -16,9 +19,16 @@ public class ScreenManager : Singleton<ScreenManager>
 
         bgTrans.Adjusting(camBound);
         ovenTrans.Adjusting(camBound);
+        wallTrans_L.Adjusting_Wall(camBound);
+        wallTrans_R.Adjusting_Wall(camBound);
+        groundTrans.Adjusting_Ground(camBound);
 
         bgTrans.transform.position += new Vector3(0, 0.8f);
         ovenTrans.transform.position = new Vector3(0, camBound.Top - 0.69f);
+        wallTrans_L.transform.position = new Vector3(camBound.Left - wallTrans_L.transform.localScale.x / 2f, 0);
+        wallTrans_R.transform.position = new Vector3(camBound.Right + wallTrans_R.transform.localScale.x / 2f, 0);
+        groundTrans.transform.position = new Vector3(0, camBound.Bottom - groundTrans.transform.localScale.y / 2f + 0.8f);
+        spawnPoint.transform.position = new Vector3(0, camBound.Top - 0.5f);
     }
 }
 

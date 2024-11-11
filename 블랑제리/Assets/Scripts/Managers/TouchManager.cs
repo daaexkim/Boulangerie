@@ -29,7 +29,14 @@ public class TouchManager : Singleton<TouchManager>
 
         isTouching = false;
 
-        SpawnManager.Instance.Spawn_Pain(0);
+        SpawnManager sm = SpawnManager.Instance;
+
+        if (sm.newPain == null)
+            return;
+
+        sm.newPain.rigid.simulated = true;
+        sm.newPain = null;
+        sm.curSpawnCool = 0f;
 
         //SpawnManager sm = SpawnManager.Instance;
 

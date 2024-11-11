@@ -7,29 +7,35 @@ using DG.Tweening;
 public class Pain : MonoBehaviour, IPoolObject
 {
     SpawnManager sm;
+    CameraBound camBound;
     [HideInInspector] public Rigidbody2D rigid;
 
     public int level;
     public float defScale;
-    public bool isMerge;
+    [HideInInspector] public float LBorder, RBorder;
+    public bool isMerge, isDrop;
 
     public void OnCreatedInPool()
     {
         name = name.Replace("(Clone)", "");
 
         sm = SpawnManager.Instance;
+        camBound = ScreenManager.Instance.camBound;
         rigid = GetComponent<Rigidbody2D>();
+
+        LBorder = camBound.Left + defScale / 2f;
+        RBorder = camBound.Right - defScale / 2f;
     }
 
     public void OnGettingFromPool()
     {
         isMerge = false;
+        transform.rotation = Quaternion.identity;
 
         Sequence seq = DOTween.Sequence().SetUpdate(true);
 
         seq.OnStart(() =>
         {
-            rigid.simulated = false;
             transform.localScale = new Vector2(0.01f, 0.01f);
 
         });
@@ -37,7 +43,6 @@ public class Pain : MonoBehaviour, IPoolObject
             .OnComplete(() =>
             {
                 transform.localScale = new Vector3(defScale, defScale);
-                rigid.simulated = true;
             });
     }
 
@@ -73,7 +78,7 @@ public class Pain : MonoBehaviour, IPoolObject
                     sm.Destroy_Pain(level, other);
                     sm.Spawn_Effect(defScale + 0.2f, middlePos);
 
-                    sm.Spawn_Pain(++level, middlePos);
+                    sm.Merge_Pain(++level, middlePos);
                 });
             }
         }
