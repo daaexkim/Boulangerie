@@ -25,6 +25,8 @@
 
 <h3>[버전 0.3]</h3>
 <img src="https://github.com/user-attachments/assets/333d7b7f-7b31-4991-989a-96680674c4fe" width="360" alt="Alpha 0.3">
+<br/>
+
 - 아이템 전부 완료<br/>
 - 반쪽짜리 빵 디자인 완료<br/>
 - 불 이펙트 완료<br/>
