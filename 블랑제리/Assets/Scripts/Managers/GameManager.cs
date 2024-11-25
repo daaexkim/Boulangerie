@@ -5,5 +5,8 @@ using UnityEngine;
 public class GameManager : Singleton<GameManager>
 {
     public int score;
-
+    public void GainScore(int amount)
+    {
+        score += amount;
+    }
 }

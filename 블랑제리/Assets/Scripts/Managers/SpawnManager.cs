@@ -47,6 +47,8 @@ public class SpawnManager : Singleton<SpawnManager>
     }
     public void Merge_Pain(int level, Vector2 pos)
     {
+        GameManager.Instance.GainScore(level * level);
+
         Pain pain = Spawn_Pain(level);
 
         painList.Add(pain);

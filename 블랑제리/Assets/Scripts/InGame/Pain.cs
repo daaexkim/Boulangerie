@@ -18,6 +18,7 @@ public class Pain : MonoBehaviour, IPoolObject
 
     Coroutine curFaceRoutine;
     Sprite def_FaceSpirte;
+    public float deadTime;
     public bool isBited;
     public Sprite defSprite, biteSprite;
     public WordData wordData;
@@ -144,6 +145,23 @@ public class Pain : MonoBehaviour, IPoolObject
                 SetFace(PainState.Hit);
                 other.SetFace(PainState.Hit);
             }
+        }
+    }
+    private void OnTriggerStay2D(Collider2D collision)
+    {
+        if (collision.CompareTag("Line"))
+        {
+            deadTime += Time.deltaTime;
+
+            if (deadTime > 1)
+                Debug.Log("게임오버");
+        }
+    }
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        if (collision.CompareTag("Line"))
+        {
+            deadTime = 0;
         }
     }
 
