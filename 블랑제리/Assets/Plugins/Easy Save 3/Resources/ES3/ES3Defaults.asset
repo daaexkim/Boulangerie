@@ -37,7 +37,6 @@ MonoBehaviour:
     - KinoBloom.Runtime
     - Nementic.SelectionUtility.Runtime
     - Nementic.SelectionUtility.Samples
-    - Pools
     - ProCamera2D.Examples
     - ProCamera2D.Runtime
     showAdvancedSettings: 0

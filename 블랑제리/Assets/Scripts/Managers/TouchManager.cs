@@ -34,7 +34,10 @@ public class TouchManager : Singleton<TouchManager>
         if (sm.newPain == null)
             return;
 
+        sm.painList.Add(sm.newPain);
+
         sm.newPain.rigid.simulated = true;
+        sm.newPain.SetFace(PainState.Fall);
         sm.newPain = null;
         sm.curSpawnCool = 0f;
 

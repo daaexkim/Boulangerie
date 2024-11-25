@@ -20,7 +20,7 @@ public class CSVManager : Singleton<CSVManager>
 
     public void CSV_Word()
     {
-        int order = 0; int size = 3;
+        int order = 0; int size = 4;
         string[] data = textAssets[order].text.Split(new string[] { ",", "\n" }, StringSplitOptions.None);
         int tableSize = data.Length / size - 1;
         csvList.wordDatas = new WordData[tableSize];
@@ -32,9 +32,17 @@ public class CSVManager : Singleton<CSVManager>
             {
                 word = data[size * k],
                 gender = (Gender)Enum.Parse(typeof(Gender), data[size * k + 1]),
-                meaning = data[size * k + 2]
+                meaning = data[size * k + 2],
+                meaning_EN = data[size * k + 3]
             };
         }
+    }
+
+    public WordData Export_RanWord()
+    {
+        int length = csvList.wordDatas.Length;
+        int ranNum = UnityEngine.Random.Range(0, length);
+        return csvList.wordDatas[ranNum];
     }
 }
 
@@ -52,5 +60,5 @@ public struct WordData
     public string word;
     public Gender gender;
     public string meaning;
-
+    public string meaning_EN;
 }

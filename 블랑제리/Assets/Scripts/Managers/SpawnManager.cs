@@ -11,6 +11,8 @@ public class SpawnManager : Singleton<SpawnManager>
     public List<Pain> painList;
     public float maxSpawnCool;
     public float curSpawnCool;
+    public Color[] genderColors;
+    public PainFace painFace;
 
     public void Update()
     {
@@ -36,8 +38,7 @@ public class SpawnManager : Singleton<SpawnManager>
     {
         Pain pain = PoolManager.Instance.GetFromPool<Pain>($"Pain_{level}");
 
-        painList.Add(pain);
-        pain.SetLevel(level);
+        pain.SetPain(level, CSVManager.Instance.Export_RanWord());
 
         pain.rigid.simulated = false;
         pain.transform.localPosition = Vector2.zero;
@@ -47,8 +48,13 @@ public class SpawnManager : Singleton<SpawnManager>
     public void Merge_Pain(int level, Vector2 pos)
     {
         Pain pain = Spawn_Pain(level);
+
+        painList.Add(pain);
+
         pain.transform.position = pos;
         pain.rigid.simulated = true;
+        pain.SetFace(PainState.Merge);
+        pain.isDropped = true;
 
         if (level <= 5 && level > cur_maxLevel)
             cur_maxLevel = level;
@@ -67,11 +73,11 @@ public class SpawnManager : Singleton<SpawnManager>
     }
     #endregion
     #region Effect
-    public Effect Spawn_Effect(float size, Vector2 pos)
+    public Effect Spawn_Effect(float size, Vector2 pos, Color color)
     {
         Effect eft = PoolManager.Instance.GetFromPool<Effect>("Effect_Pang");
 
-        eft.SetEffect(size, pos);
+        eft.SetEffect(size, pos, color);
 
         return eft;
     }
@@ -80,4 +86,31 @@ public class SpawnManager : Singleton<SpawnManager>
         PoolManager.Instance.TakeToPool<Effect>("Effect_Pang", effect);
     }
     #endregion
+    public FireEffect Spawn_FireEffect (float size, Vector2 pos, Pain delPain)
+    {
+        FireEffect eft = PoolManager.Instance.GetFromPool<FireEffect>("Effect_Fire");
+
+        eft.SetEffect(size, pos, delPain);
+
+        return eft;
+    }
+    public void Destroy_FireEffect(FireEffect eft)
+    {
+        PoolManager.Instance.TakeToPool<FireEffect>("Effect_Fire", eft);
+
+    }
+}
+
+[System.Serializable]
+public struct PainFace
+{
+    public Sprite[] defSprites;
+    public Sprite hitSprite;
+    public Sprite fallSprite;
+    public Sprite mergeSprite;
+
+    public Sprite Export_defSprite_Ran()
+    {
+        return defSprites[Random.Range(0, defSprites.Length)];
+    }
 }

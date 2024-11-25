@@ -5,8 +5,11 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
-  - enabled: 0
-    path: 
-    guid: 00000000000000000000000000000000
+  - enabled: 1
+    path: Assets/Scenes/InGame.unity
+    guid: 3fc8acdd13e6c734bafef6554d6fdbcd
   m_configObjects:
+    com.unity.adaptiveperformance.loader_settings: {fileID: 11400000, guid: 480793a722d578a4791f29bd4a159af1, type: 2}
     com.unity.adaptiveperformance.simulator.provider_settings: {fileID: 11400000, guid: f776d55f07dd93042ba3b1296737593f, type: 2}
+    com.unity.addressableassets: {fileID: 11400000, guid: 0db512f16055ce449b54eb122eeab5b3, type: 2}
+    com.unity.localization.settings: {fileID: 11400000, guid: fbef48a62525c994da7d40aba6945e31, type: 2}
