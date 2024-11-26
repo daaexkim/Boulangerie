@@ -101,6 +101,19 @@ public class SpawnManager : Singleton<SpawnManager>
         PoolManager.Instance.TakeToPool<FireEffect>("Effect_Fire", eft);
 
     }
+
+    public CoinEffect Spawn_CoinEffect(Vector2 startPos, Vector2 targetPos)
+    {
+        CoinEffect coin = PoolManager.Instance.GetFromPool<CoinEffect>("Effect_Coin");
+
+        coin.MoveTween(startPos, targetPos);
+
+        return coin;
+    }
+    public void Destroy_CoinEffect(CoinEffect eft)
+    {
+        PoolManager.Instance.TakeToPool<CoinEffect>("Effect_Coin", eft);
+    }
 }
 
 [System.Serializable]

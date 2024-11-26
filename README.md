@@ -39,9 +39,19 @@
 - 폰트 넣기 완료<br/>
 - 점수 하는 중<br/>
 
-<h3>[버전 0.3]</h3>
+<h3>[버전 0.4]</h3>
 <br/>
-
 - 스코어 구현<br/>
 - 게임오버 (코드상) 구현<br/>
+
+<h3>[버전 0.5]</h3>
+<img src="https://github.com/user-attachments/assets/ceaf9ca3-0fa0-49b0-bf83-039ad4b7763d" width="360" alt="Alpha 0.5">
+<br/>
+- 게임오버 박스 완성<br/>
+- 코인<br/>
+- 아이템 위치, 코인 UI 완성<br/>
+- 코인 애니메이션 구현<br/>
+- 국기 추가<br/>
+- 점수&코인 부드럽게 올라가는 애니메이션 완<br/>
+
 </details>
