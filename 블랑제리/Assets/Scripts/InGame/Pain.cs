@@ -154,7 +154,7 @@ public class Pain : MonoBehaviour, IPoolObject
             deadTime += Time.deltaTime;
 
             if (deadTime > 1)
-                Debug.Log("게임오버");
+                GameManager.Instance.GameOver();
         }
     }
     private void OnTriggerExit2D(Collider2D collision)
@@ -180,6 +180,11 @@ public class Pain : MonoBehaviour, IPoolObject
             sr.sprite = defSprite;
             ResetPolygonColliderToSprite();
         }
+    }
+    public void Burned()
+    {
+        sr.color = sm.burnedColor;
+        faceSr.sprite = sm.painFace.fallSprite;
     }
     private void ResetPolygonColliderToSprite()
     {

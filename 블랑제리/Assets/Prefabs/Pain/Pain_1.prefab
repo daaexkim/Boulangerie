@@ -336,6 +336,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rigid: {fileID: 0}
+  deadTime: 0
   isBited: 0
   defSprite: {fileID: 21300000, guid: eb5799792614a89478387e4993fd9229, type: 3}
   biteSprite: {fileID: 21300000, guid: 9f6645ebc80440443847e6b71b708f9d, type: 3}

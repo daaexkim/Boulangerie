@@ -1,10 +1,47 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using DG.Tweening;
 using UnityEngine;
 
 public class BtnManager : Singleton<BtnManager>
 {
+    public void Tab(GameObject obj)
+    {
+        if (TouchManager.Instance.isTouching)
+            return;
+
+        if (!obj.activeSelf)
+        {
+            obj.SetActive(true);
+            UIManager.Instance.raycastPannel.SetActive(true);
+            obj.transform.localScale = new Vector3(0.05f, 0.05f, 0.05f);
+            obj.transform.DOScale(new Vector3(1f, 1f, 1f), 0.5f).SetEase(Ease.InExpo).SetEase(Ease.OutBounce).SetUpdate(true);
+        }
+        else
+        {
+            UIManager.Instance.raycastPannel.SetActive(false);
+            obj.transform.DOScale(new Vector3(0.05f, 0.05f, 0.05f), 0.25f).SetEase(Ease.InOutExpo).SetUpdate(true).OnComplete(() => obj.SetActive(false));
+        }
+    }
+
+    public void Tab_NoRayCast(GameObject obj)
+    {
+        if (TouchManager.Instance.isTouching)
+            return;
+
+        if (!obj.activeSelf)
+        {
+            obj.SetActive(true);
+            obj.transform.localScale = new Vector3(0.05f, 0.05f, 0.05f);
+            obj.transform.DOScale(new Vector3(1f, 1f, 1f), 0.5f).SetEase(Ease.InExpo).SetEase(Ease.OutBounce).SetUpdate(true);
+        }
+        else
+        {
+            obj.transform.DOScale(new Vector3(0.05f, 0.05f, 0.05f), 0.25f).SetEase(Ease.InOutExpo).SetUpdate(true).OnComplete(() => obj.SetActive(false));
+        }
+    }
+
     public void TranslateDown() {
         SpawnManager sm = SpawnManager.Instance;
         foreach(Pain pain in sm.painList)
@@ -28,6 +65,8 @@ public class BtnManager : Singleton<BtnManager>
 
     public void MixBtn()
     {
+        if (!ItemCoin(0))
+            return;
         StartCoroutine(MixRoutine());
     }
     private IEnumerator MixRoutine()
@@ -61,6 +100,8 @@ public class BtnManager : Singleton<BtnManager>
 
     public void FireBtn()
     {
+        if (!ItemCoin(1))
+            return;
         SpawnManager sm = SpawnManager.Instance;
         List<Pain> painList = sm.painList;
 
@@ -101,6 +142,8 @@ public class BtnManager : Singleton<BtnManager>
 
     public void TaupeBtn()
     {
+        if (!ItemCoin(2))
+            return;
         SpawnManager sm = SpawnManager.Instance;
         Pain oldPain = null;
         List<Pain> availPains = new List<Pain>();
@@ -121,5 +164,22 @@ public class BtnManager : Singleton<BtnManager>
         oldPain.SetFace(PainState.Fall);
 
         oldPain.Bited(true);
+    }
+
+    private bool ItemCoin(int id)
+    {
+        GameManager gm = GameManager.Instance;
+        int price = gm.itemPrices[id];
+
+        if(gm.curCoin >= price)
+        {
+            SpawnManager sm = SpawnManager.Instance;
+            UIManager um = UIManager.Instance;
+            for (int i = 0; i < price / 10; i++)
+                sm.Spawn_CoinEffect(um.coinTrans.position, um.itemTrans[id].position, false);
+            return true;
+        }
+
+        return false;
     }
 }

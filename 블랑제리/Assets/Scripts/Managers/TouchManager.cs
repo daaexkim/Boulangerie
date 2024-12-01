@@ -9,22 +9,15 @@ public class TouchManager : Singleton<TouchManager>
 
     public void TouchDown()
     {
-        if (isTouching)
+        if (isTouching || GameManager.Instance.isGameover)
             return;
 
         isTouching = true;
-
-        //SpawnManager sm = SpawnManager.Instance;
-
-        //if (sm.lastSlime == null)
-        //    return;
-
-        //sm.lastSlime.Drag();
     }
 
     public void TouchUp()
     {
-        if (!isTouching)
+        if (!isTouching || GameManager.Instance.isGameover)
             return;
 
         isTouching = false;
@@ -52,11 +45,11 @@ public class TouchManager : Singleton<TouchManager>
     private void Update()
     {
 #if UNITY_EDITOR
-        if (Input.GetMouseButtonDown(0) && !isTouching && !EventSystem.current.IsPointerOverGameObject())
+        if (Input.GetMouseButtonDown(0) && !isTouching && !EventSystem.current.IsPointerOverGameObject() && !GameManager.Instance.isGameover)
         {
             TouchDown();
         }
-        else if (Input.GetMouseButtonUp(0) && isTouching)
+        else if (Input.GetMouseButtonUp(0) && isTouching && !GameManager.Instance.isGameover)
         {
             TouchUp();
         }
@@ -69,11 +62,11 @@ public class TouchManager : Singleton<TouchManager>
             if (!IsTouchValid(touch.fingerId))
                 return;
 
-            if (touch.phase == TouchPhase.Began && !EventSystem.current.IsPointerOverGameObject(touch.fingerId) && !isTouching)
+            if (touch.phase == TouchPhase.Began && !EventSystem.current.IsPointerOverGameObject(touch.fingerId) && !isTouching && !GameManager.Instance.isGameover)
             {
                 TouchDown();
             }
-            else if ((touch.phase == TouchPhase.Ended || touch.phase == TouchPhase.Canceled) && isTouching)
+            else if ((touch.phase == TouchPhase.Ended || touch.phase == TouchPhase.Canceled) && isTouching && !GameManager.Instance.isGameover)
             {
                 TouchUp();
             }

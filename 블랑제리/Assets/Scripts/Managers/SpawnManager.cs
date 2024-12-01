@@ -12,10 +12,14 @@ public class SpawnManager : Singleton<SpawnManager>
     public float maxSpawnCool;
     public float curSpawnCool;
     public Color[] genderColors;
+    public Color burnedColor;
     public PainFace painFace;
 
     public void Update()
     {
+        if (GameManager.Instance.isGameover)
+            return;
+
         if (curSpawnCool < maxSpawnCool)
             curSpawnCool += Time.deltaTime;
 
@@ -102,11 +106,14 @@ public class SpawnManager : Singleton<SpawnManager>
 
     }
 
-    public CoinEffect Spawn_CoinEffect(Vector2 startPos, Vector2 targetPos)
+    public CoinEffect Spawn_CoinEffect(Vector2 startPos, Vector2 targetPos, bool isPlus)
     {
         CoinEffect coin = PoolManager.Instance.GetFromPool<CoinEffect>("Effect_Coin");
 
-        coin.MoveTween(startPos, targetPos);
+        if (isPlus)
+            coin.MoveTween_IsPlus(startPos, targetPos);
+        else
+            coin.MoveTween_IsMinus(startPos, targetPos);
 
         return coin;
     }
