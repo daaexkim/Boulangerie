@@ -3,9 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using DG.Tweening;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class BtnManager : Singleton<BtnManager>
 {
+    public GameObject rayCastPannel;
     public void Tab(GameObject obj)
     {
         if (TouchManager.Instance.isTouching)
@@ -14,17 +16,16 @@ public class BtnManager : Singleton<BtnManager>
         if (!obj.activeSelf)
         {
             obj.SetActive(true);
-            UIManager.Instance.raycastPannel.SetActive(true);
+            rayCastPannel.SetActive(true);
             obj.transform.localScale = new Vector3(0.05f, 0.05f, 0.05f);
             obj.transform.DOScale(new Vector3(1f, 1f, 1f), 0.5f).SetEase(Ease.InExpo).SetEase(Ease.OutBounce).SetUpdate(true);
         }
         else
         {
-            UIManager.Instance.raycastPannel.SetActive(false);
+            rayCastPannel.SetActive(false);
             obj.transform.DOScale(new Vector3(0.05f, 0.05f, 0.05f), 0.25f).SetEase(Ease.InOutExpo).SetUpdate(true).OnComplete(() => obj.SetActive(false));
         }
     }
-
     public void Tab_NoRayCast(GameObject obj)
     {
         if (TouchManager.Instance.isTouching)
@@ -42,6 +43,38 @@ public class BtnManager : Singleton<BtnManager>
         }
     }
 
+    public void Stop()
+    {
+        Time.timeScale = 0f;
+    }
+    public void Resume()
+    {
+        Time.timeScale = 1f;
+    }
+
+    public void Start_Game(int modeID)
+    {
+        GameManager.Instance.gameMode = (GameMode)modeID;
+        SceneManager.LoadScene(1);
+    }
+    public void Back_Menu()
+    {
+        GameManager.Instance.ReSet();
+
+        SceneManager.LoadScene(0);
+    }
+    public void Restart_Game()
+    {
+        GameManager.Instance.ReSet();
+
+        SceneManager.LoadScene(1);
+    }
+    public void GameOverBtn(GameObject obj)
+    {
+        Tab(obj);
+        GameManager.Instance.GameOver();
+    }
+
     public void TranslateDown() {
         SpawnManager sm = SpawnManager.Instance;
         foreach(Pain pain in sm.painList)
@@ -51,7 +84,6 @@ public class BtnManager : Singleton<BtnManager>
         if(sm.newPain)
             sm.newPain.Translation();
     }
-
     public void TranslateUp()
     {
         SpawnManager sm = SpawnManager.Instance;
@@ -65,14 +97,20 @@ public class BtnManager : Singleton<BtnManager>
 
     public void MixBtn()
     {
-        if (!ItemCoin(0))
-            return;
-        StartCoroutine(MixRoutine());
-    }
-    private IEnumerator MixRoutine()
-    {
         SpawnManager sm = SpawnManager.Instance;
         List<Pain> curList = new List<Pain>(sm.painList);
+
+        if (curList.Count < 2)
+            return;
+
+        if (!ItemCoin(0))
+            return;
+
+        StartCoroutine(MixRoutine(curList));
+    }
+    private IEnumerator MixRoutine(List<Pain> curList)
+    {
+        SpawnManager sm = SpawnManager.Instance;
 
         Pain aPain = null;
         Pain bPain = null;
@@ -100,12 +138,13 @@ public class BtnManager : Singleton<BtnManager>
 
     public void FireBtn()
     {
-        if (!ItemCoin(1))
-            return;
         SpawnManager sm = SpawnManager.Instance;
         List<Pain> painList = sm.painList;
 
         if (painList.Count <= 0)
+            return;
+
+        if (!ItemCoin(1))
             return;
 
         int maxLv = 0;
@@ -117,7 +156,7 @@ public class BtnManager : Singleton<BtnManager>
 
         List<Pain> tarPains = painList.FindAll(data => data.level == maxLv);
         Pain tarPain = tarPains[Random.Range(0, tarPains.Count)];
-        tarPain.SetFace(PainState.Fall);
+        tarPain.Burned();
 
         StartCoroutine(FireRoutine(tarPain));
     }
@@ -126,7 +165,7 @@ public class BtnManager : Singleton<BtnManager>
         SpawnManager sm = SpawnManager.Instance;
 
         List<Vector2> poses = new List<Vector2>();
-        int count = tarPain.level + 2;
+        int count = Random.Range(2, 5);
         for (int i = 0; i < count; i++)
             poses.Add(tarPain.transform.position + new Vector3(-tarPain.defScale / 2f + tarPain.defScale / 2f / count + (i * tarPain.defScale / count),
                 Random.Range(-tarPain.defScale / count, tarPain.defScale / count)));
@@ -142,28 +181,32 @@ public class BtnManager : Singleton<BtnManager>
 
     public void TaupeBtn()
     {
-        if (!ItemCoin(2))
-            return;
         SpawnManager sm = SpawnManager.Instance;
-        Pain oldPain = null;
         List<Pain> availPains = new List<Pain>();
 
-        foreach(Pain pain in sm.painList)
+        int maxLv = 0;
+        foreach (Pain pain in sm.painList)
         {
             if (pain.isBited)
                 continue;
-            availPains.Add(pain);
+            if(pain.level > maxLv)
+            {
+                availPains.Add(pain);
+                maxLv = pain.level;
+            }
         }
 
         if(availPains.Count <= 0)
-        {
             return;
-        }
 
-        oldPain = availPains[Random.Range(0, availPains.Count)];
-        oldPain.SetFace(PainState.Fall);
+        if (!ItemCoin(2))
+            return;
 
-        oldPain.Bited(true);
+        List<Pain> tarPains = availPains.FindAll(data => data.level == maxLv);
+        Pain tarPain = tarPains[Random.Range(0, tarPains.Count)];
+        tarPain.SetFace(PainState.Fall);
+
+        tarPain.Bited(true);
     }
 
     private bool ItemCoin(int id)
@@ -181,5 +224,23 @@ public class BtnManager : Singleton<BtnManager>
         }
 
         return false;
+    }
+
+    public void TestBtn()
+    {
+        StartCoroutine(TestRoutine());
+    }
+    private IEnumerator TestRoutine()
+    {
+        SpawnManager sm = SpawnManager.Instance;
+        ScreenManager.Instance.lineTrans.gameObject.SetActive(false);
+
+        for (int i = 0; i <= 10; i++)
+        {
+            Pain testPain = sm.Spawn_Pain(i);
+            testPain.rigid.simulated = true;
+
+            yield return new WaitForSeconds(0.5f);
+        }
     }
 }

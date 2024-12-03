@@ -249,9 +249,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rigid: {fileID: 0}
+  deadTime: 0
   isBited: 0
   defSprite: {fileID: 21300000, guid: 8d65dc6e7a47faa42a20eb208f61962e, type: 3}
   biteSprite: {fileID: 21300000, guid: fa448d01471cc7d43b74ae1e182906e0, type: 3}
+  burnedSprite: {fileID: 21300000, guid: 7eb83c03ab7fb4648ab686a762ba91f7, type: 3}
   wordData:
     word: 
     gender: 0

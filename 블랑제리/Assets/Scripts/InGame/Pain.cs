@@ -15,12 +15,13 @@ public class Pain : MonoBehaviour, IPoolObject
     PolygonCollider2D col;
     TextMeshPro tmpro;
     SpriteRenderer faceSr;
+    GameManager gm;
 
     Coroutine curFaceRoutine;
     Sprite def_FaceSpirte;
     public float deadTime;
     public bool isBited;
-    public Sprite defSprite, biteSprite;
+    public Sprite defSprite, biteSprite, burnedSprite;
     public WordData wordData;
     public int level;
     public float defScale;
@@ -32,6 +33,7 @@ public class Pain : MonoBehaviour, IPoolObject
         name = name.Replace("(Clone)", "");
         sm = SpawnManager.Instance;
         tm = TranslateManager.Instance;
+        gm = GameManager.Instance;
         camBound = ScreenManager.Instance.camBound;
         sr = GetComponent<SpriteRenderer>();
         col = GetComponent<PolygonCollider2D>();
@@ -41,6 +43,11 @@ public class Pain : MonoBehaviour, IPoolObject
         RBorder = camBound.Right - defScale / 2f;
         faceSr = transform.Find("Face").GetComponent<SpriteRenderer>();
 
+        if (gm.gameMode == GameMode.Bebe)
+        {
+            tmpro.gameObject.SetActive(false);
+
+        }
         transform.localScale = new Vector2(0.01f, 0.01f);
     }
 
@@ -72,7 +79,9 @@ public class Pain : MonoBehaviour, IPoolObject
         sr.sprite = defSprite;
         level = _level;
         wordData = data;
-        tmpro.text = data.word;
+        tmpro.text = wordData.word;
+        if (gm.gameMode == GameMode.Jeune)
+            tmpro.color = sm.genderColors[(int)wordData.gender];
         isDropped = false;
         StartCoroutine(DropRoutine());
 
@@ -116,8 +125,19 @@ public class Pain : MonoBehaviour, IPoolObject
         {
             Pain other =  collision.gameObject.GetComponent<Pain>();
 
-            if(other.level == level && !isMerge && !other.isMerge && wordData.gender == other.wordData.gender)
+            if(other.level == level && !isMerge && !other.isMerge)
             {
+                if(gm.gameMode == GameMode.Bebe)
+                {
+
+                }
+
+                else if (wordData.gender != Gender.Neutral && other.wordData.gender != Gender.Neutral && wordData.gender != other.wordData.gender)
+                {
+                    return;
+                }
+
+
                 other.isMerge = true;
                 isMerge = true;
                 other.rigid.simulated = false;
@@ -137,7 +157,13 @@ public class Pain : MonoBehaviour, IPoolObject
                     sm.Destroy_Pain(level, other);
 
                     sm.Merge_Pain(++level, middlePos);
-                    sm.Spawn_Effect(defScale + 0.2f, middlePos, sm.genderColors[(int)wordData.gender]);
+
+                    if(gm.gameMode == GameMode.Bebe)
+                        sm.Spawn_Effect(defScale + 0.2f, middlePos, Color.white);
+                    else if (wordData.gender == Gender.Neutral || other.wordData.gender == Gender.Neutral)
+                        sm.Spawn_Effect(defScale + 0.2f, middlePos, sm.genderColors[(int)Gender.Neutral]);
+                    else
+                        sm.Spawn_Effect(defScale + 0.2f, middlePos, sm.genderColors[(int)wordData.gender]);
                 });
             }
             else
@@ -183,7 +209,7 @@ public class Pain : MonoBehaviour, IPoolObject
     }
     public void Burned()
     {
-        sr.color = sm.burnedColor;
+        sr.sprite = burnedSprite;
         faceSr.sprite = sm.painFace.fallSprite;
     }
     private void ResetPolygonColliderToSprite()

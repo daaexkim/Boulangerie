@@ -340,6 +340,7 @@ MonoBehaviour:
   isBited: 0
   defSprite: {fileID: 21300000, guid: eb5799792614a89478387e4993fd9229, type: 3}
   biteSprite: {fileID: 21300000, guid: 9f6645ebc80440443847e6b71b708f9d, type: 3}
+  burnedSprite: {fileID: 21300000, guid: 1cc51055e50dc374aa0eed7fd19613d0, type: 3}
   wordData:
     word: 
     gender: 0

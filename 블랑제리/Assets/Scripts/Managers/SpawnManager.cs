@@ -12,7 +12,6 @@ public class SpawnManager : Singleton<SpawnManager>
     public float maxSpawnCool;
     public float curSpawnCool;
     public Color[] genderColors;
-    public Color burnedColor;
     public PainFace painFace;
 
     public void Update()

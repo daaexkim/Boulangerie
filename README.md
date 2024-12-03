@@ -64,4 +64,17 @@
 - 폰트 추가<br/>
 - 국기 이미지 변경<br/>
 - 씬 추가(메인 화면)<br/>
+
+<h3>[버전 0.7]</h3>
+<img src="https://github.com/user-attachments/assets/ee8a2f9e-b7f7-4db5-98ac-be6541ff3618" width="360" alt="Alpha 0.7">
+<br/>
+- 폰트 정상화<br/>
+- 씬 전환<br/>
+- 사용방법 버튼 구현<br/>
+- 모드 구현 (거의)<br/>
+- 정지 화면 구현<br/>
+- 탄빵 이미지 추가<br/>
+- 게임 스톱, 리슘 구현<br/>
+- 버그 수정(코인, 탄빵 등)<br/>
+
 </details>

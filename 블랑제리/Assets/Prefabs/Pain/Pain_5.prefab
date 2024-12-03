@@ -340,16 +340,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rigid: {fileID: 0}
+  deadTime: 0
   isBited: 0
   defSprite: {fileID: 21300000, guid: 441bd3942c006d8468adc22b5a39010a, type: 3}
   biteSprite: {fileID: 21300000, guid: c2abf07275d7f754a8793735ffcdb219, type: 3}
+  burnedSprite: {fileID: 21300000, guid: e7dc34d5edbcbb9499354f71f1fdf3ec, type: 3}
   wordData:
     word: 
     gender: 0
     meaning: 
     meaning_EN: 
   level: 5
-  defScale: 1.6
+  defScale: 1.8
   LBorder: 0
   RBorder: 0
   isMerge: 0
