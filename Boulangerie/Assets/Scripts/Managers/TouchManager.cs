@@ -47,7 +47,7 @@ public class TouchManager : Singleton<TouchManager>
             TouchUp();
         }
 
-#elif UNITY_WEBGL
+#elif UNITY_WEBGL || UNITY_ANDROID
         if (Input.touchCount == 1)
         {
             Touch touch = Input.GetTouch(0);

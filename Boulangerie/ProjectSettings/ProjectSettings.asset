@@ -135,8 +135,7 @@ PlayerSettings:
     16:9: 1
     Others: 1
   bundleVersion: 1.0
-  preloadedAssets:
-  - {fileID: -1988401858782557737, guid: 480793a722d578a4791f29bd4a159af1, type: 2}
+  preloadedAssets: []
   metroInputSource: 0
   wsaTransparentSwapchain: 0
   m_HolographicPauseOnTrackingLoss: 1
@@ -166,7 +165,7 @@ PlayerSettings:
   overrideDefaultApplicationIdentifier: 0
   AndroidBundleVersionCode: 1
   AndroidMinSdkVersion: 22
-  AndroidTargetSdkVersion: 33
+  AndroidTargetSdkVersion: 29
   AndroidPreferredInstallLocation: 1
   aotOptions: 
   stripEngineCode: 1
@@ -252,7 +251,7 @@ PlayerSettings:
   AndroidTargetDevices: 0
   AndroidSplashScreenScale: 0
   androidSplashScreen: {fileID: 0}
-  AndroidKeystoreName: D:/Keystore.keystore
+  AndroidKeystoreName: C:/Keystore.keystore
   AndroidKeyaliasName: boulangerie
   AndroidBuildApkPerCpuArchitecture: 0
   AndroidTVCompatibility: 0
@@ -380,7 +379,9 @@ PlayerSettings:
       m_SubKind: App Store
   - m_BuildTarget: Android
     m_Icons:
-    - m_Textures: []
+    - m_Textures:
+      - {fileID: 2800000, guid: cd0603a216f2f9644a78b7daafc25026, type: 3}
+      - {fileID: 0}
       m_Width: 432
       m_Height: 432
       m_Kind: 2
@@ -410,7 +411,8 @@ PlayerSettings:
       m_Height: 81
       m_Kind: 2
       m_SubKind: 
-    - m_Textures: []
+    - m_Textures:
+      - {fileID: 2800000, guid: cd0603a216f2f9644a78b7daafc25026, type: 3}
       m_Width: 192
       m_Height: 192
       m_Kind: 1
@@ -440,7 +442,8 @@ PlayerSettings:
       m_Height: 36
       m_Kind: 1
       m_SubKind: 
-    - m_Textures: []
+    - m_Textures:
+      - {fileID: 2800000, guid: cd0603a216f2f9644a78b7daafc25026, type: 3}
       m_Width: 192
       m_Height: 192
       m_Kind: 0
@@ -880,11 +883,11 @@ PlayerSettings:
     m_VersionName: 
   apiCompatibilityLevel: 6
   activeInputHandler: 0
-  cloudProjectId: dcf9eb88-7cb3-493d-9667-947f256fe122
+  cloudProjectId: 08607809-d2a0-420d-8427-144db67698e1
   framebufferDepthMemorylessMode: 0
   qualitySettingsNames: []
   projectName: Boulangerie_game
-  organizationId: daae-kim
+  organizationId: hdh36115
   cloudEnabled: 0
   legacyClampBlendShapeWeights: 0
   playerDataPath: 

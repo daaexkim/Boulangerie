@@ -129,6 +129,8 @@ public class BtnManager : Singleton<BtnManager>
         // 현재 국가 업데이트
         gm.curCountry = (Country)nextCountryID;
 
+        gm.Save_Country();
+
         // 번역 실행
         tm.Translate_Texts();
         tm.Translate_Imgs();

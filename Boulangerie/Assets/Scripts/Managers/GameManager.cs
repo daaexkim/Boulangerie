@@ -10,10 +10,11 @@ public class GameManager : Singleton<GameManager>
     public string SAVE_PATH;
     public int topScore;
     public int tarCoin;
-    [Title("현재 게임 난이도")]
-    public GameMode gameMode;
     [Title("현재 언어")]
     public Country curCountry;
+
+    [Title("현재 게임 난이도")]
+    public GameMode gameMode;
     [Title("아이템 가격 (왼쪽부터)")]
     public int[] itemPrices;
 
@@ -26,6 +27,7 @@ public class GameManager : Singleton<GameManager>
     protected override void Awake()
     {
         base.Awake();
+        Application.targetFrameRate = 60;
         LoadAll();
     }
 
@@ -45,10 +47,15 @@ public class GameManager : Singleton<GameManager>
     {
         ES3.Save<int>("Coin", tarCoin, SAVE_PATH);
     }
+    public void Save_Country()
+    {
+        ES3.Save<Country>("Country", curCountry, SAVE_PATH);
+    }
     public void LoadAll()
     {
         topScore = ES3.Load<int>("Score", SAVE_PATH, 0);
         tarCoin = ES3.Load<int>("Coin", SAVE_PATH, 0);
+        curCountry = ES3.Load<Country>("Country", SAVE_PATH, Country.ko);
         curCoin = tarCoin;
     }
 

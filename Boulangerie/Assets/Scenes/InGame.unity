@@ -2398,9 +2398,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 99a22a8d7ce780b45a576b208e20ec3f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  font_en: {fileID: 11400000, guid: 28e9aaa2b0b76bb47be7eee412c12020, type: 2}
+  font_en: {fileID: 11400000, guid: b4e4de122ae1569489ea61244514f769, type: 2}
   font_ko: {fileID: 11400000, guid: e4fffe5bade12b54793b183d3895d438, type: 2}
-  font_fr: {fileID: 11400000, guid: 28e9aaa2b0b76bb47be7eee412c12020, type: 2}
+  font_fr: {fileID: 11400000, guid: b4e4de122ae1569489ea61244514f769, type: 2}
   translateTxts:
   - {fileID: 1805320507}
   - {fileID: 1524490393}
@@ -2797,14 +2797,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1163ae9fefd6c2246b75bf563366fa69, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  SAVE_PATH: 
+  topScore: 0
+  tarCoin: 0
   gameMode: 0
   curCountry: 0
+  itemPrices: c80000002c01000064000000
   isGameover: 0
+  curCoin: 0
   curScore: 0
   tarScore: 0
-  curCoin: 0
-  tarCoin: 0
-  itemPrices: c80000002c01000064000000
 --- !u!4 &909607155
 Transform:
   m_ObjectHideFlags: 0
@@ -7019,10 +7021,10 @@ RectTransform:
   m_Father: {fileID: 951729586}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 1, y: 0}
-  m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -50, y: 0}
-  m_SizeDelta: {x: 240, y: -40}
+  m_AnchorMin: {x: 1, y: 0.5}
+  m_AnchorMax: {x: 1, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 240, y: 240}
   m_Pivot: {x: 1, y: 0.5}
 --- !u!1 &2146103597
 GameObject:

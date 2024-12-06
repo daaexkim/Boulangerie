@@ -43,11 +43,12 @@ public class Pain : MonoBehaviour, IPoolObject
         RBorder = camBound.Right - defScale / 2f;
         faceSr = transform.Find("Face").GetComponent<SpriteRenderer>();
 
+        Debug.Log(tm.font_fr.name);
+        Debug.Log(tmpro.font.name);
+
         if (gm.gameMode == GameMode.Bebe)
-        {
             tmpro.gameObject.SetActive(false);
 
-        }
         transform.localScale = new Vector2(0.01f, 0.01f);
     }
 
