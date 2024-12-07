@@ -1,7 +1,7 @@
 # 블랑제리
 
 <details>
-<summary>0.1~0.7</summary>
+<summary>0.1~0.8</summary>
 
 <h3>[버전 0.1]</h3>
 <img src="https://github.com/user-attachments/assets/e34ca20a-ebc9-420b-ae1f-e380b8e3f6c4" width="360" alt="Alpha 0.1">
