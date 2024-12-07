@@ -43,9 +43,6 @@ public class Pain : MonoBehaviour, IPoolObject
         RBorder = camBound.Right - defScale / 2f;
         faceSr = transform.Find("Face").GetComponent<SpriteRenderer>();
 
-        Debug.Log(tm.font_fr.name);
-        Debug.Log(tmpro.font.name);
-
         if (gm.gameMode == GameMode.Bebe)
             tmpro.gameObject.SetActive(false);
 
@@ -84,14 +81,15 @@ public class Pain : MonoBehaviour, IPoolObject
         if (gm.gameMode == GameMode.Jeune)
             tmpro.color = sm.genderColors[(int)wordData.gender];
         isDropped = false;
-        StartCoroutine(DropRoutine());
+        if(gameObject.activeSelf)
+            StartCoroutine(DropRoutine());
 
         Bited(false);
     }
 
     public void SetFace(PainState state)
     {
-        if (curFaceRoutine == null)
+        if (curFaceRoutine == null && gameObject.activeSelf)
             curFaceRoutine = StartCoroutine(FaceRoutine(state));
     }
     private IEnumerator FaceRoutine(PainState state)
@@ -122,11 +120,11 @@ public class Pain : MonoBehaviour, IPoolObject
 
     public void OnCollisionEnter2D(Collision2D collision)
     {
-        if (GameManager.Instance.isGameover)
-            return;
-
         if(collision.collider.CompareTag("Pain"))
         {
+            if (GameManager.Instance.isGameover)
+                return;
+
             Pain other =  collision.gameObject.GetComponent<Pain>();
 
             if(other.level == level && !isMerge && !other.isMerge)

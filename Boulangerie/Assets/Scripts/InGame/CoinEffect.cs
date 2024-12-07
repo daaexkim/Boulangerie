@@ -6,11 +6,13 @@ using DG.Tweening;
 
 public class CoinEffect : MonoBehaviour, IPoolObject
 {
+    SoundManager soundM;
     SpawnManager sm;
     GameManager gm;
 
     public void OnCreatedInPool()
     {
+        soundM = SoundManager.Instance;
         sm = SpawnManager.Instance;
         gm = GameManager.Instance;
 
@@ -19,6 +21,7 @@ public class CoinEffect : MonoBehaviour, IPoolObject
 
     public void OnGettingFromPool()
     {
+        soundM.SFXPlay(SFXType.Coin);
     }
 
     public void MoveTween_IsPlus(Vector2 startPos, Vector2 targetPos)

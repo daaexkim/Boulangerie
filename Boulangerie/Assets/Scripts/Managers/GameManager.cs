@@ -3,6 +3,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
+using GooglePlayGames;
+using GooglePlayGames.BasicApi;
 
 public class GameManager : Singleton<GameManager>
 {
@@ -24,9 +26,12 @@ public class GameManager : Singleton<GameManager>
     public int curScore, tarScore;
     private int lastScore = 0;
 
-    protected override void Awake()
+    private void Start()
     {
-        base.Awake();
+        #if UNITY_ANDROID
+        GPGSManager.Inst.Login();
+        #endif
+
         Application.targetFrameRate = 60;
         LoadAll();
     }
@@ -107,6 +112,7 @@ public class GameManager : Singleton<GameManager>
         if (isGameover)
             return;
 
+        SoundManager.Instance.SFXPlay(SFXType.Over);
         isGameover = true;
         StartCoroutine(GameoverRoutine(overPain));
     }
@@ -128,6 +134,7 @@ public class GameManager : Singleton<GameManager>
 
         if (overPain != null)
         {
+            bm.Stop();
             overPain.faceSr.sprite = sm.painFace.fallSprite;
             Sequence seq = DOTween.Sequence().SetUpdate(true);
             seq.Append(overPain.sr.DOColor(Color.red, 0.3f).SetEase(Ease.OutExpo))
@@ -136,10 +143,12 @@ public class GameManager : Singleton<GameManager>
                 .Append(overPain.sr.DOColor(Color.white, 0.2f).SetEase(Ease.OutExpo))
                 .Append(overPain.sr.DOColor(Color.red, 0.3f).SetEase(Ease.OutExpo))
                 .Append(overPain.sr.DOColor(Color.white, 0.2f).SetEase(Ease.OutExpo));
+            bm.Resume();
 
             yield return new WaitForSeconds(1.5f);
         }
 
+        bm.Resume();
         foreach (Pain pain in liveList)
         {
             pain.Burned();

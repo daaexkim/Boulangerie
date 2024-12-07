@@ -73,24 +73,31 @@ public class BtnManager : Singleton<BtnManager>
     public void Start_Game(int modeID)
     {
         GameManager.Instance.gameMode = (GameMode)modeID;
+        SoundManager.Instance.BGMPlay(modeID);
         SceneManager.LoadScene(1);
     }
     public void Back_Menu()
     {
         GameManager.Instance.ReSet();
+        SoundManager.Instance.BGMPlay(3);
 
-        SceneManager.LoadScene(0);
+        AdmobManager.Instance.ShowFrontAd(0);
     }
     public void Restart_Game()
     {
         GameManager.Instance.ReSet();
+        SoundManager.Instance.bgmPlayer.Play();
 
-        SceneManager.LoadScene(1);
+        AdmobManager.Instance.ShowFrontAd(1);
     }
     public void GameOverBtn(GameObject obj)
     {
         Tab(obj);
         GameManager.Instance.GameOver(null);
+    }
+    public void RankingBtn()
+    {
+        GPGSManager.Inst.ShowAllLeaderboardUI();
     }
 
     public void TranslateDown() {
@@ -276,6 +283,11 @@ public class BtnManager : Singleton<BtnManager>
         }
 
         return false;
+    }
+
+    public void BtnSound()
+    {
+        SoundManager.Instance.SFXPlay(SFXType.Button);
     }
 
     public void TestBtn()

@@ -7,16 +7,19 @@ public class Effect : MonoBehaviour, IPoolObject
 {
     SpriteRenderer sr;
     SpawnManager sm;
+    SoundManager soundM;
     public void OnCreatedInPool()
     {
         name = name.Replace("(Clone)", "");
 
         sr = GetComponent<SpriteRenderer>();
         sm = SpawnManager.Instance;
+        soundM = SoundManager.Instance;
     }
 
     public void OnGettingFromPool()
     {
+        soundM.SFXPlay(SFXType.Pop);
     }
 
     public void SetEffect(float size, Vector2 pos, Color color)

@@ -6,6 +6,7 @@ using DG.Tweening;
 
 public class FireEffect : MonoBehaviour, IPoolObject
 {
+    SoundManager soundM;
     SpawnManager sm;
     SpriteRenderer sr;
     float defScale;
@@ -14,6 +15,7 @@ public class FireEffect : MonoBehaviour, IPoolObject
     {
         name = name.Replace("(Clone)", "");
 
+        soundM = SoundManager.Instance;
         sm = SpawnManager.Instance;
         sr = GetComponent<SpriteRenderer>();
 
@@ -23,6 +25,7 @@ public class FireEffect : MonoBehaviour, IPoolObject
 
     public void OnGettingFromPool()
     {
+        soundM.SFXPlay(SFXType.Fire);
     }
 
     public void SetEffect(float scale, Vector2 pos, Pain delPain)

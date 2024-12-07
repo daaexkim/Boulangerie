@@ -27,6 +27,7 @@ public class TouchManager : Singleton<TouchManager>
         if (sm.newPain == null)
             return;
 
+        // SoundManager.Instance.SFXPlay(SFXType.Drop);
         sm.painList.Add(sm.newPain);
 
         sm.newPain.rigid.simulated = true;

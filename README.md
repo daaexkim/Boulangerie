@@ -1,7 +1,7 @@
 # 블랑제리
 
 <details>
-<summary>0.1~</summary>
+<summary>0.1~0.7</summary>
 
 <h3>[버전 0.1]</h3>
 <img src="https://github.com/user-attachments/assets/e34ca20a-ebc9-420b-ae1f-e380b8e3f6c4" width="360" alt="Alpha 0.1">
@@ -85,5 +85,21 @@
 - burned-bited pain 추가<br/>
 - 게임 설명 수정<br/>
 - textmeshpro 수정<br/>
+
+</details>
+<details>
+<summary>테스트</summary>
+<h3>[버전 0.8 (알파)]</h3>
+<img src="https://github.com/user-attachments/assets/d79e25be-5270-4c17-bc52-13cbe0d4bf42" width="360" alt="Alpha 0.8">
+<br/>
+- TMPro 영어 Border 깨지는 버그 수정<br/>
+- 사운드 추가<br/>
+- 사운드 풀링 기능 구현<br/>
+- GPGS, AdMob 연동<br/>
+- GPGS 로그인, 리더보드 기능 구현<br/>
+- AdMob 전면광고, 배너광고 구현<br/>
+- 구글 플레이 콘솔, 구글 크라우드 콘솔, 구글 애드몹 계정 설정 완료<br/>
+- 안드로이드 빌드 성공 (aab, apk)<br/>
+- 잔버그 수정 (게임 오버, 일시 정지 등등)<br/>
 
 </details>

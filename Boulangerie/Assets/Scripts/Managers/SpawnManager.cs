@@ -23,7 +23,7 @@ public class SpawnManager : Singleton<SpawnManager>
             curSpawnCool += Time.deltaTime;
 
         if (!newPain && curSpawnCool >= maxSpawnCool)
-            newPain = SpawnManager.Instance.Spawn_Pain_Ran();
+            newPain = Spawn_Pain_Ran();
         else if(newPain && TouchManager.Instance.isTouching)
         {
             Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
