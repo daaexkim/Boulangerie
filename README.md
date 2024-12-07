@@ -77,7 +77,7 @@
 - 게임 스톱, 리슘 구현<br/>
 - 버그 수정(코인, 탄빵 등)<br/>
 
-<h3>[버전 0.9]</h3>
+<h3>[버전 0.8]</h3>
 - 번역 완성<br/>
 - 게임 오버 조건 업그레이드<br/>
 - bebe 국기 숨김<br/>
@@ -89,8 +89,8 @@
 </details>
 <details>
 <summary>테스트</summary>
-<h3>[버전 0.8 (알파)]</h3>
-<img src="https://github.com/user-attachments/assets/d79e25be-5270-4c17-bc52-13cbe0d4bf42" width="360" alt="Alpha 0.8">
+<h3>[버전 0.9 (알파)]</h3>
+<img src="https://github.com/user-attachments/assets/d79e25be-5270-4c17-bc52-13cbe0d4bf42" width="360" alt="Alpha 0.9">
 <br/>
 - TMPro 영어 Border 깨지는 버그 수정<br/>
 - 사운드 추가<br/>
