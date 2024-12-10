@@ -28,11 +28,9 @@ public class GameManager : Singleton<GameManager>
 
     private void Start()
     {
-        #if UNITY_ANDROID
-        GPGSManager.Inst.Login();
-        #endif
-
         Application.targetFrameRate = 60;
+        GPGSManager.Inst.Login();
+
         LoadAll();
     }
 
@@ -70,7 +68,10 @@ public class GameManager : Singleton<GameManager>
     }
     public void GainCoin(int amount)
     {
-        int calAmount = gameMode == GameMode.Bebe ? amount / 2 : amount;
+        int calAmount = amount;
+
+        if(amount > 0)
+            calAmount = gameMode == GameMode.Bebe ? amount / 2 : amount;
 
         tarCoin += calAmount;
     }
@@ -128,6 +129,9 @@ public class GameManager : Singleton<GameManager>
         if(tarScore > topScore)
         {
             topScore = tarScore;
+
+            GPGSManager.Inst.ReportLeaderboard(gameMode, topScore);
+
             Save_Score();
         }
         Save_Coin();
@@ -161,7 +165,6 @@ public class GameManager : Singleton<GameManager>
         foreach (Pain pain in liveList)
         {
             sm.Destroy_Pain(pain.level, pain);
-            yield return null;
         }
 
         yield return new WaitForSeconds(0.5f);

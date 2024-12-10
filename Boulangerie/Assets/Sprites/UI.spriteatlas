@@ -23,12 +23,12 @@ SpriteAtlas:
     platformSettings:
     - serializedVersion: 3
       m_BuildTarget: DefaultTexturePlatform
-      m_MaxTextureSize: 4096
+      m_MaxTextureSize: 2048
       m_ResizeAlgorithm: 0
       m_TextureFormat: -1
-      m_TextureCompression: 1
-      m_CompressionQuality: 50
-      m_CrunchedCompression: 0
+      m_TextureCompression: 2
+      m_CompressionQuality: 100
+      m_CrunchedCompression: 1
       m_AllowsAlphaSplitting: 0
       m_Overridden: 0
       m_AndroidETC2FallbackOverride: 0
@@ -44,7 +44,7 @@ SpriteAtlas:
     secondaryTextureSettings: {}
     variantMultiplier: 1
     packables:
-    - {fileID: 2800000, guid: c1be3309331c685419dfab27031627bc, type: 3}
+    - {fileID: 2800000, guid: 4ce6527e1b323644a84044ce78e3b4d4, type: 3}
     - {fileID: 2800000, guid: 411903ab2d016a34aa524f33b867784b, type: 3}
     - {fileID: 2800000, guid: 39c09ca516ad0e24c8b6ce96be78011a, type: 3}
     - {fileID: 2800000, guid: fe3d26ffef5f2bf499fae87d53351edf, type: 3}
@@ -66,7 +66,6 @@ SpriteAtlas:
     - {fileID: 2800000, guid: 902d957b97dec6a47aa87b80887d6626, type: 3}
     - {fileID: 2800000, guid: 2d48ddb8bd579a04f9d0c30e22d3d2fc, type: 3}
     - {fileID: 2800000, guid: fe8e3cd95a8785a41bc131287eee30dd, type: 3}
-    - {fileID: 2800000, guid: 4ce6527e1b323644a84044ce78e3b4d4, type: 3}
     bindAsDefault: 1
     isAtlasV2: 0
     cachedData: {fileID: 0}
@@ -81,7 +80,6 @@ SpriteAtlas:
   - {fileID: 21300000, guid: 69f11cd798c6b734f9145412995896b3, type: 3}
   - {fileID: 21300000, guid: 2d48ddb8bd579a04f9d0c30e22d3d2fc, type: 3}
   - {fileID: 21300000, guid: 1fed1ec8fb7fbd44ca0d83e96db9bfa0, type: 3}
-  - {fileID: 21300000, guid: c1be3309331c685419dfab27031627bc, type: 3}
   - {fileID: 21300000, guid: fe8e3cd95a8785a41bc131287eee30dd, type: 3}
   - {fileID: 21300000, guid: f968214a13e52ed4590835d627328c78, type: 3}
   - {fileID: 21300000, guid: 70f5bc5ad237dfd42b88028307fde460, type: 3}
@@ -105,7 +103,6 @@ SpriteAtlas:
   - PannelSharpBorder
   - Trans_En
   - ControlBtn_Clicked
-  - BG
   - Trans_Ko
   - OvenPannel
   - ScoreBoard

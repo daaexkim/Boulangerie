@@ -16,4 +16,5 @@
 		<receiver android:exported="false" android:name="com.unity.androidnotifications.UnityNotificationRestartOnBootReceiver" tools:replace="android:exported">
 		</receiver>
     </application>
+	<uses-permission android:name="com.google.android.gms.permission.AD_ID" />
 </manifest>

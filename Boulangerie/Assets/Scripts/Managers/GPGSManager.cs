@@ -29,4 +29,21 @@ public class GPGSManager
 
     public void ShowAllLeaderboardUI() =>
         Social.ShowLeaderboardUI();
+    private void ReportLeaderboard(string gpgsId, long score, Action<bool> onReported = null) =>
+            Social.ReportScore(score, gpgsId, success => onReported?.Invoke(success));
+    public void ReportLeaderboard(GameMode mode, int score)
+    {
+        switch(mode)
+        {
+            case GameMode.Bebe:
+                ReportLeaderboard(GPGSIds.leaderboard_bb, score);
+                break;
+            case GameMode.Jeune:
+                ReportLeaderboard(GPGSIds.leaderboard_jeune, score);
+                break;
+            case GameMode.Adulte:
+                ReportLeaderboard(GPGSIds.leaderboard_adulte, score);
+                break;
+        }
+    }
 }
