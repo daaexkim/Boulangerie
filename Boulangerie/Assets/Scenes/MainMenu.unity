@@ -757,7 +757,7 @@ MonoBehaviour:
   m_text: <sprite=0>100
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: e4fffe5bade12b54793b183d3895d438, type: 2}
-  m_sharedMaterial: {fileID: 3867816083580624590, guid: e4fffe5bade12b54793b183d3895d438, type: 2}
+  m_sharedMaterial: {fileID: -6731098450913629200, guid: e4fffe5bade12b54793b183d3895d438, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -1745,7 +1745,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &381498890
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2818,6 +2818,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7131bac22ee07c745ac0ebc6a3bb95f6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isIteming: 0
   rayCastPannel: {fileID: 1637468384}
 --- !u!4 &709130705
 Transform:
@@ -3476,7 +3477,7 @@ MonoBehaviour:
   m_text: TOP 111
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: e4fffe5bade12b54793b183d3895d438, type: 2}
-  m_sharedMaterial: {fileID: 3867816083580624590, guid: e4fffe5bade12b54793b183d3895d438, type: 2}
+  m_sharedMaterial: {fileID: -6731098450913629200, guid: e4fffe5bade12b54793b183d3895d438, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -5769,7 +5770,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "Adulte  \uBAA8\uB4DC"
+  m_text: "Adulte \uBAA8\uB4DC"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 5db03219f14a40b419e34bb724407ad3, type: 2}
   m_sharedMaterial: {fileID: 3080907659987268577, guid: 5db03219f14a40b419e34bb724407ad3, type: 2}
@@ -5860,7 +5861,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   font_ko: {fileID: 11400000, guid: 5db03219f14a40b419e34bb724407ad3, type: 2}
   font_en: {fileID: 11400000, guid: 6f6df6e5b817c7542acd32d35ee739a2, type: 2}
-  ko: "Adulte  \uBAA8\uB4DC"
+  ko: "Adulte \uBAA8\uB4DC"
   en: Adulte mode
 --- !u!1 &1488285140
 GameObject:
@@ -5915,7 +5916,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   font_ko: {fileID: 11400000, guid: 5db03219f14a40b419e34bb724407ad3, type: 2}
   font_en: {fileID: 11400000, guid: 6f6df6e5b817c7542acd32d35ee739a2, type: 2}
-  ko: "Jeune  \uBAA8\uB4DC"
+  ko: "Jeune \uBAA8\uB4DC"
   en: Jeune mode
 --- !u!114 &1488285143
 MonoBehaviour:
@@ -5937,7 +5938,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "Adulte  \uBAA8\uB4DC"
+  m_text: "Adulte \uBAA8\uB4DC"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 5db03219f14a40b419e34bb724407ad3, type: 2}
   m_sharedMaterial: {fileID: 3080907659987268577, guid: 5db03219f14a40b419e34bb724407ad3, type: 2}
@@ -7114,7 +7115,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   font_ko: {fileID: 11400000, guid: 5db03219f14a40b419e34bb724407ad3, type: 2}
   font_en: {fileID: 11400000, guid: 6f6df6e5b817c7542acd32d35ee739a2, type: 2}
-  ko: "B\xE9b\xE9  \uBAA8\uB4DC"
+  ko: "B\xE9b\xE9 \uBAA8\uB4DC"
   en: "B\xE9b\xE9 mode"
 --- !u!114 &1735447519
 MonoBehaviour:
@@ -7136,7 +7137,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "B\xE9b\xE9  \uBAA8\uB4DC"
+  m_text: "B\xE9b\xE9 \uBAA8\uB4DC"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 5db03219f14a40b419e34bb724407ad3, type: 2}
   m_sharedMaterial: {fileID: 3080907659987268577, guid: 5db03219f14a40b419e34bb724407ad3, type: 2}

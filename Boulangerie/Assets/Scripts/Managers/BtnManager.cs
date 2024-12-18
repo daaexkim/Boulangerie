@@ -7,6 +7,7 @@ using UnityEngine.SceneManagement;
 
 public class BtnManager : Singleton<BtnManager>
 {
+    public bool isIteming;
     public GameObject rayCastPannel;
     public void Tab(GameObject obj)
     {
@@ -60,6 +61,23 @@ public class BtnManager : Singleton<BtnManager>
             obj.transform.DOScale(new Vector3(0.05f, 0.05f, 0.05f), 0.25f).SetEase(Ease.InOutExpo).SetUpdate(true).OnComplete(() => obj.SetActive(false));
         }
     }
+    public void Tab_GameOver()
+    {
+        GameObject obj = UIManager.Instance.gameoverPannel.trans.gameObject;
+
+        if (!obj.activeSelf)
+        {
+            obj.SetActive(true);
+            rayCastPannel.SetActive(true);
+            obj.transform.localScale = new Vector3(0.05f, 0.05f, 0.05f);
+            obj.transform.DOScale(new Vector3(1f, 1f, 1f), 0.5f).SetEase(Ease.InExpo).SetEase(Ease.OutBounce).SetUpdate(true);
+        }
+        else
+        {
+            rayCastPannel.SetActive(false);
+            obj.transform.DOScale(new Vector3(0.05f, 0.05f, 0.05f), 0.25f).SetEase(Ease.InOutExpo).SetUpdate(true).OnComplete(() => obj.SetActive(false));
+        }
+    }
 
     public void Stop()
     {
@@ -81,14 +99,16 @@ public class BtnManager : Singleton<BtnManager>
         GameManager.Instance.ReSet();
         SoundManager.Instance.BGMPlay(3);
 
-        AdmobManager.Instance.ShowFrontAd(0);
+        SceneManager.LoadScene(0);
+        //AdmobManager.Instance.ShowFrontAd(0);
     }
     public void Restart_Game()
     {
         GameManager.Instance.ReSet();
         SoundManager.Instance.bgmPlayer.Play();
 
-        AdmobManager.Instance.ShowFrontAd(1);
+        SceneManager.LoadScene(1);
+        //AdmobManager.Instance.ShowFrontAd(1);
     }
     public void GameOverBtn(GameObject obj)
     {
@@ -147,7 +167,7 @@ public class BtnManager : Singleton<BtnManager>
 
     public void MixBtn()
     {
-        if (GameManager.Instance.isGameover)
+        if (GameManager.Instance.isGameover || isIteming)
             return;
 
         SpawnManager sm = SpawnManager.Instance;
@@ -163,17 +183,34 @@ public class BtnManager : Singleton<BtnManager>
     }
     private IEnumerator MixRoutine(List<Pain> curList)
     {
+        isIteming = true;
+
         SpawnManager sm = SpawnManager.Instance;
 
         Pain aPain = null;
         Pain bPain = null;
-        
-        while(curList.Count >= 2)
+
+        int loopCount = curList.Count / 2;
+
+        for(int i = 0; i < loopCount; i++)
         {
+            if (curList.Count < 2)
+                break;
+
             aPain = curList[Random.Range(0, curList.Count)];
+            if(aPain == null || !aPain.gameObject.activeSelf)
+            {
+                curList.Remove(aPain);
+                continue;
+            }    
             aPain.SetFace(PainState.Merge);
             curList.Remove(aPain);
             bPain = curList[Random.Range(0, curList.Count)];
+            if (bPain == null || !bPain.gameObject.activeSelf)
+            {
+                curList.Remove(bPain);
+                continue;
+            }
             bPain.SetFace(PainState.Merge);
             curList.Remove(bPain);
 
@@ -186,12 +223,15 @@ public class BtnManager : Singleton<BtnManager>
             sm.Spawn_Effect(bPain.defScale + 1f, aPos, Color.white);
 
             yield return new WaitForSeconds(0.2f);
-        }   
+        }
+
+        yield return new WaitForSeconds(0.2f);
+        isIteming = false;
     }
 
     public void FireBtn()
     {
-        if (GameManager.Instance.isGameover)
+        if (GameManager.Instance.isGameover || isIteming)
             return;
 
         SpawnManager sm = SpawnManager.Instance;
@@ -203,8 +243,15 @@ public class BtnManager : Singleton<BtnManager>
         if (!ItemCoin(1))
             return;
 
+        StartCoroutine(FireRoutine(painList));
+    }
+    private IEnumerator FireRoutine(List<Pain> painList)
+    {
+        isIteming = true;
+        SpawnManager sm = SpawnManager.Instance;
+
         int maxLv = 0;
-        foreach(Pain pain in painList)
+        foreach (Pain pain in painList)
         {
             if (pain.level > maxLv)
                 maxLv = pain.level;
@@ -213,12 +260,6 @@ public class BtnManager : Singleton<BtnManager>
         List<Pain> tarPains = painList.FindAll(data => data.level == maxLv);
         Pain tarPain = tarPains[Random.Range(0, tarPains.Count)];
         tarPain.Burned();
-
-        StartCoroutine(FireRoutine(tarPain));
-    }
-    private IEnumerator FireRoutine(Pain tarPain)
-    {
-        SpawnManager sm = SpawnManager.Instance;
 
         List<Vector2> poses = new List<Vector2>();
         int count = Random.Range(2, 5);
@@ -233,11 +274,14 @@ public class BtnManager : Singleton<BtnManager>
             sm.Spawn_FireEffect(tarPain.defScale, pos, tarPain);
             yield return new WaitForSeconds(0.1f);
         }
+
+        yield return new WaitForSeconds(0.2f);
+        isIteming = false;
     }
 
     public void TaupeBtn()
     {
-        if (GameManager.Instance.isGameover)
+        if (GameManager.Instance.isGameover || isIteming)
             return;
 
         SpawnManager sm = SpawnManager.Instance;
@@ -273,7 +317,7 @@ public class BtnManager : Singleton<BtnManager>
         GameManager gm = GameManager.Instance;
         int price = gm.itemPrices[id];
 
-        if(gm.curCoin >= price)
+        if(gm.tarCoin >= price)
         {
             SpawnManager sm = SpawnManager.Instance;
             UIManager um = UIManager.Instance;
@@ -299,9 +343,9 @@ public class BtnManager : Singleton<BtnManager>
         SpawnManager sm = SpawnManager.Instance;
         ScreenManager.Instance.lineTrans.gameObject.SetActive(false);
 
-        for (int i = 0; i <= 10; i++)
+        for (int i = 0; i <= 2; i++)
         {
-            Pain testPain = sm.Spawn_Pain(i);
+            Pain testPain = sm.Spawn_Pain(10);
             testPain.rigid.simulated = true;
 
             yield return new WaitForSeconds(0.5f);
