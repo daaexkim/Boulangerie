@@ -3,8 +3,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
-using GooglePlayGames;
-using GooglePlayGames.BasicApi;
 
 public class GameManager : Singleton<GameManager>
 {
@@ -12,6 +10,7 @@ public class GameManager : Singleton<GameManager>
     public string SAVE_PATH;
     public int topScore;
     public int tarCoin;
+
     [Title("현재 언어")]
     public Country curCountry;
 
@@ -54,6 +53,7 @@ public class GameManager : Singleton<GameManager>
     {
         ES3.Save<Country>("Country", curCountry, SAVE_PATH);
     }
+
     public void LoadAll()
     {
         topScore = ES3.Load<int>("Score", SAVE_PATH, 0);
@@ -74,6 +74,8 @@ public class GameManager : Singleton<GameManager>
             calAmount = gameMode == GameMode.Bebe ? amount / 2 : amount;
 
         tarCoin += calAmount;
+
+        Save_Coin();
     }
 
     public IEnumerator CoinRoutine()
@@ -123,56 +125,61 @@ public class GameManager : Singleton<GameManager>
         BtnManager bm = BtnManager.Instance;
         UIManager um = UIManager.Instance;
         List<Pain> liveList = new List<Pain>(sm.painList);
-        if(sm.newPain != null)
-            liveList.Add(sm.newPain);
 
-        if(tarScore > topScore)
+        if (tarScore > topScore)
         {
             topScore = tarScore;
-
-            GPGSManager.Inst.ReportLeaderboard(gameMode, topScore);
-
             Save_Score();
         }
         Save_Coin();
 
-        if (overPain != null)
+        try
         {
+            if (overPain != null)
+            {
+                bool isSeq = false;
+                overPain.faceSr.sprite = sm.painFace.fallSprite;
+                Sequence seq = DOTween.Sequence().SetUpdate(true);
+                seq.Append(overPain.sr.DOColor(Color.red, 0.3f).SetEase(Ease.OutExpo))
+                    .Append(overPain.sr.DOColor(Color.white, 0.2f).SetEase(Ease.OutExpo))
+                    .Append(overPain.sr.DOColor(Color.red, 0.3f).SetEase(Ease.OutExpo))
+                    .Append(overPain.sr.DOColor(Color.white, 0.2f).SetEase(Ease.OutExpo))
+                    .Append(overPain.sr.DOColor(Color.red, 0.3f).SetEase(Ease.OutExpo))
+                    .Append(overPain.sr.DOColor(Color.white, 0.2f).SetEase(Ease.OutExpo))
+                    .OnComplete(() => isSeq = true);
+
+                yield return new WaitUntil(() => isSeq);
+            }
+
+            if (sm.newPain != null)
+                liveList.Add(sm.newPain);
+
+            foreach (Pain pain in liveList)
+            {
+                if (pain == null || !pain.gameObject.activeSelf)
+                    continue;
+                pain.Burned();
+                yield return new WaitForSeconds(0.025f);
+            }
+            yield return new WaitForSeconds(0.2f);
+
+            sm.Spawn_Effect(8f, Vector2.zero, Color.white);
+
+            foreach (Pain pain in liveList)
+            {
+                sm.Destroy_Pain(pain.level, pain);
+            }
+
+            yield return new WaitForSeconds(0.5f);
+        }
+
+        finally
+        {
+            um.gameoverPannel.SetUI(topScore, tarScore, tarCoin);
+
             bm.Stop();
-            overPain.faceSr.sprite = sm.painFace.fallSprite;
-            Sequence seq = DOTween.Sequence().SetUpdate(true);
-            seq.Append(overPain.sr.DOColor(Color.red, 0.3f).SetEase(Ease.OutExpo))
-                .Append(overPain.sr.DOColor(Color.white, 0.2f).SetEase(Ease.OutExpo))
-                .Append(overPain.sr.DOColor(Color.red, 0.3f).SetEase(Ease.OutExpo))
-                .Append(overPain.sr.DOColor(Color.white, 0.2f).SetEase(Ease.OutExpo))
-                .Append(overPain.sr.DOColor(Color.red, 0.3f).SetEase(Ease.OutExpo))
-                .Append(overPain.sr.DOColor(Color.white, 0.2f).SetEase(Ease.OutExpo));
-            bm.Resume();
-
-            yield return new WaitForSeconds(1.5f);
+            bm.Tab_GameOver();
         }
-
-        bm.Resume();
-        foreach (Pain pain in liveList)
-        {
-            pain.Burned();
-            yield return new WaitForSeconds(0.05f);
-        }
-        yield return new WaitForSeconds(0.2f);
-
-        sm.Spawn_Effect(8f, Vector2.zero, Color.white);
-
-        foreach (Pain pain in liveList)
-        {
-            sm.Destroy_Pain(pain.level, pain);
-        }
-
-        yield return new WaitForSeconds(0.5f);
-
-        um.gameoverPannel.SetUI(topScore, tarScore, tarCoin);
-
-        bm.Stop();
-        bm.Tab_GameOver();
     }
 }
 
