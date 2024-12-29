@@ -27,9 +27,10 @@ public class GameManager : Singleton<GameManager>
 
     private void Start()
     {
-        Application.targetFrameRate = 60;
         GPGSManager.Inst.Login();
+        StartCoroutine(CheckAppUpdate.CheckForUpdate());
 
+        Application.targetFrameRate = 60;
         LoadAll();
     }
 

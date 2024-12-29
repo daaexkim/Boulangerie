@@ -34,6 +34,9 @@ MonoBehaviour:
     - Assembly-CSharp-firstpass
     - CFXRDemo
     - CFXRRuntime
+    - Google.Play.AppUpdate
+    - Google.Play.Common
+    - Google.Play.Core
     - KinoBloom.Runtime
     - Nementic.SelectionUtility.Runtime
     - Nementic.SelectionUtility.Samples

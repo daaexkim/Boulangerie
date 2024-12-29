@@ -10,16 +10,16 @@ public class AdmobManager : Singleton<AdmobManager>
 
     void Start()
     {
-        //var requestConfiguration = new RequestConfiguration
-        //   .Builder()
-        //   .SetTestDeviceIds(new List<string>() { "DA55FBA1AEDF47FA" }) // test Device ID
-        //   .build();
+        var requestConfiguration = new RequestConfiguration
+           .Builder()
+           .SetTestDeviceIds(new List<string>() { "DA55FBA1AEDF47FA" }) // test Device ID
+           .build();
 
-        //MobileAds.SetRequestConfiguration(requestConfiguration);
+        MobileAds.SetRequestConfiguration(requestConfiguration);
 
-        //LoadBannerAd(); // 시작 시 배너광고 로드
+        LoadBannerAd(); // 시작 시 배너광고 로드
 
-        //SceneManager.sceneLoaded += ADLoaded;
+        SceneManager.sceneLoaded += ADLoaded;
     }
 
     void ADLoaded(Scene scene, LoadSceneMode mode)

@@ -99,16 +99,14 @@ public class BtnManager : Singleton<BtnManager>
         GameManager.Instance.ReSet();
         SoundManager.Instance.BGMPlay(3);
 
-        SceneManager.LoadScene(0);
-        //AdmobManager.Instance.ShowFrontAd(0);
+        AdmobManager.Instance.ShowFrontAd(0);
     }
     public void Restart_Game()
     {
         GameManager.Instance.ReSet();
         SoundManager.Instance.bgmPlayer.Play();
 
-        SceneManager.LoadScene(1);
-        //AdmobManager.Instance.ShowFrontAd(1);
+        AdmobManager.Instance.ShowFrontAd(1);
     }
     public void GameOverBtn(GameObject obj)
     {
