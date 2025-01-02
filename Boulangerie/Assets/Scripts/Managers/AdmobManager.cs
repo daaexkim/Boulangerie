@@ -37,7 +37,7 @@ public class AdmobManager : Singleton<AdmobManager>
 
     #region ¹è³Ê ±¤°í
     const string bannerTestID = "ca-app-pub-3940256099942544/6300978111";
-    const string bannerID = "ca-app-pub-4059713768893618/2567691692";
+    const string bannerID = "ca-app-pub-9546715742178824/3698863044";
     BannerView bannerAd;
 
     void LoadBannerAd()
@@ -74,7 +74,7 @@ public class AdmobManager : Singleton<AdmobManager>
     #endregion
     #region Àü¸é ±¤°í
     const string frontTestID = "ca-app-pub-3940256099942544/8691691433";
-    const string frontID = "ca-app-pub-4059713768893618/2751540433";
+    const string frontID = "ca-app-pub-9546715742178824/4820373028";
     [HideInInspector] public InterstitialAd frontAd;
 
 
