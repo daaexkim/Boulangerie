@@ -25,11 +25,20 @@ public class GameManager : Singleton<GameManager>
     public int curScore, tarScore;
     private int lastScore = 0;
 
-    private void Start()
+    protected override void Awake()
     {
+        base.Awake();
+
+#if UNITY_EDITOR
+        return;
+#elif UNITY_ANDROID
         GPGSManager.Inst.Login();
         StartCoroutine(CheckAppUpdate.CheckForUpdate());
+#endif
+    }
 
+    private void Start()
+    {
         Application.targetFrameRate = 60;
         LoadAll();
     }
