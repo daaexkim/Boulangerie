@@ -139,6 +139,7 @@ public class GameManager : Singleton<GameManager>
         if (tarScore > topScore)
         {
             topScore = tarScore;
+            GPGSManager.Inst.ReportLeaderboard(gameMode, topScore);
             Save_Score();
         }
         Save_Coin();
