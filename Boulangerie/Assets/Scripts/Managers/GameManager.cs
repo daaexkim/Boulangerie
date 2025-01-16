@@ -9,6 +9,7 @@ public class GameManager : Singleton<GameManager>
     [Title("세이브 변수")]
     public string SAVE_PATH;
     public int topScore;
+    public int[] topScores;
     public int tarCoin;
 
     [Title("현재 언어")]
@@ -53,7 +54,7 @@ public class GameManager : Singleton<GameManager>
     }
     public void Save_Score()
     {
-        ES3.Save<int>("Score", topScore, SAVE_PATH);
+        ES3.Save<int[]>("Scores", topScores, SAVE_PATH);
     }
     public void Save_Coin()
     {
@@ -67,6 +68,8 @@ public class GameManager : Singleton<GameManager>
     public void LoadAll()
     {
         topScore = ES3.Load<int>("Score", SAVE_PATH, 0);
+        int[] loadScore = new int[] { topScore, 0, 0 };
+        topScores = ES3.Load<int[]>("Scores", SAVE_PATH, loadScore);
         tarCoin = ES3.Load<int>("Coin", SAVE_PATH, 0);
         curCountry = ES3.Load<Country>("Country", SAVE_PATH, Country.ko);
         curCoin = tarCoin;
@@ -136,10 +139,11 @@ public class GameManager : Singleton<GameManager>
         UIManager um = UIManager.Instance;
         List<Pain> liveList = new List<Pain>(sm.painList);
 
-        if (tarScore > topScore)
+        int modeID = (int)gameMode;
+        if (tarScore > topScores[modeID])
         {
-            topScore = tarScore;
-            GPGSManager.Inst.ReportLeaderboard(gameMode, topScore);
+            topScores[modeID] = tarScore;
+            GPGSManager.Inst.ReportLeaderboard(gameMode, topScores[modeID]);
             Save_Score();
         }
         Save_Coin();
@@ -186,7 +190,7 @@ public class GameManager : Singleton<GameManager>
 
         finally
         {
-            um.gameoverPannel.SetUI(topScore, tarScore, tarCoin);
+            um.gameoverPannel.SetUI(topScores[(int)gameMode], tarScore, tarCoin);
 
             bm.Stop();
             bm.Tab_GameOver();
@@ -194,4 +198,4 @@ public class GameManager : Singleton<GameManager>
     }
 }
 
-public enum GameMode { Bebe, Jeune, Adulte }
+public enum GameMode { Bebe = 0, Jeune, Adulte }
