@@ -37,7 +37,7 @@ public class AdmobManager : Singleton<AdmobManager>
 
     #region 배너 광고
     const string bannerTestID = "ca-app-pub-3940256099942544/6300978111";
-    const string bannerID = "ca-app-pub-9546715742178824/3698863044";
+    const string bannerID = "ca-app-pub-9546715742178824/4057281619";
     BannerView bannerAd;
 
     void LoadBannerAd()
@@ -74,7 +74,7 @@ public class AdmobManager : Singleton<AdmobManager>
     #endregion
     #region 전면 광고
     const string frontTestID = "ca-app-pub-3940256099942544/8691691433";
-    const string frontID = "ca-app-pub-9546715742178824/4820373028";
+    const string frontID = "ca-app-pub-9546715742178824/2541019960";
     [HideInInspector] public InterstitialAd frontAd;
 
 
@@ -83,16 +83,31 @@ public class AdmobManager : Singleton<AdmobManager>
         InterstitialAd.Load(isTestMode ? frontTestID : frontID, GetAdRequest(),
             (InterstitialAd ad, LoadAdError error) => {
                 if (error != null || ad == null)
-                    LoadFrontAd();
+                {
+                    Debug.LogWarning("광고 로드 실패: " + error);
+                    frontAd = null; // 광고 로드 실패 시 null로 설정
+                }
                 else
+                {
                     frontAd = ad;
+                    frontAd.OnAdFullScreenContentClosed += () => DestroyFrontAd(); // 광고 닫힌 후 정리
+                    Debug.Log("광고 로드 성공");
+                }
             });
     }
 
     public void ShowFrontAd(int sceneID)
     {
-        frontAd.OnAdFullScreenContentClosed += () => SceneManager.LoadScene(sceneID);
-        frontAd.Show();
+        if (frontAd != null)
+        {
+            frontAd.OnAdFullScreenContentClosed += () => SceneManager.LoadScene(sceneID);
+            frontAd.Show();
+        }
+        else
+        {
+            Debug.Log("광고가 로드되지 않았으므로 즉시 씬 이동");
+            SceneManager.LoadScene(sceneID); // 광고 없이 바로 씬 이동
+        }
     }
 
     void DestroyFrontAd()

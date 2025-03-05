@@ -98,7 +98,7 @@ public class BtnManager : Singleton<BtnManager>
     {
         GameManager.Instance.ReSet();
         SoundManager.Instance.BGMPlay(3);
-
+ 
         AdmobManager.Instance.ShowFrontAd(0);
     }
     public void Restart_Game()

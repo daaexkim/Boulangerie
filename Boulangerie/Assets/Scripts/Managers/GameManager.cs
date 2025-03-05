@@ -34,7 +34,6 @@ public class GameManager : Singleton<GameManager>
         return;
 #elif UNITY_ANDROID
         GPGSManager.Inst.Login();
-        StartCoroutine(CheckAppUpdate.CheckForUpdate());
 #endif
     }
 
